@@ -1,10 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Music Plus</title>
+    <meta charset="UTF-8">
+    <title>MusicPlus</title>
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
+    <div class="container">
+        <!-- Now Playing Section -->
+        <div id="now-playing" class="section">
+            <div class="track-info">
+                <img id="album-art" src="icons/icon128.png" alt="Artwork" class="artwork-thumb">
+                <div class="text-meta">
+                    <div id="song-title" class="title">Nothing playing</div>
+                    <div id="artist-name" class="artist">-</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Sleep Timer Section -->
+        <div class="section">
+            <div class="label-row row-between">
+                <div class="label-group">
+                    <span class="label">Sleep timer</span>
+                    <span id="slider-display" class="slider-val">00h00m</span>
+                </div>
+                <button id="cancel-timer" class="cancel-btn hidden">✕</button>
+            </div>
+            <div class="timer-presets">
+                <button class="preset" data-mins="15">15m</button>
+                <button class="preset" data-mins="30">30m</button>
+                <button class="preset" data-mins="45">45m</button>
+                <button class="preset" data-mins="60">60m</button>
+            </div>
+            <div class="slider-container">
+                <input type="range" id="timer-slider" min="0" max="120" value="0" step="1">
+            </div>
+            <div id="timer-status" class="status-line">off</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Mini Player Section -->
+        <div class="section row-between">
+            <div class="label">Floating mini player</div>
+            <label class="switch">
+                <input type="checkbox" id="mini-player-toggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
     <script src="popup.js"></script>
 </body>
 </html>

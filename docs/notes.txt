@@ -1,0 +1,56 @@
+how we built this so far
+
+scaffolded the whole thing with a manifest v3 setup. basic structure:
+
+content.js: the "spy" on the page
+
+background.js: the "hub" that keeps state and routes messages
+
+manifest: defines permissions (storage, notifications, tabs, etc) and where to run
+
+apple music's dom is a mess (Might break later in the future so need to constantly watch it)
+custom elements everywhere (amp-playback-controls-play, etc.) and things re-render constantly.
+
+problem: content script firing before the player existed
+fix: added a waitForPlayer function that polls every 500ms until [data-testid="player-lcd-metadata"] shows up. gave up after 30s if it never shows.
+
+problem: play/pause state detection
+started with checking classes like ".playing" but apple uses aria-hidden on specific buttons inside their custom elements.
+
+fix: getIsPlaying now checks if the pause button (.playback-play__pause) exists and if aria-hidden is NOT "true". if the pause button is visible, it's playing. simple.
+
+problem: track changes re-rendering everything
+mutationobservers were going stale because apple wipes the whole marquee block when the song changes.
+
+fix: put the observer on the parent container [data-testid="player-lcd"] and told it to watch everything (subtree, childList). on every hit, we just re-query the dom fresh using querySelector instead of holding onto variables.
+
+problem: high-res album art
+apple gives a srcset with multiple sizes.
+
+fix: grabbed the srcset string, split it, took the last one (highest res), and then used a regex to strip the size suffix (like /100x100bb.jpg) to get the original high-res asset.
+
+problem: button clicking
+the skip buttons (next/prev) are custom elements and don't always expose a clickable child button to the content script.
+
+fix: just click the custom element itself (amp-playback-controls-item-skip). seems to work fine.
+
+manifest v3 problems
+problem: popup state sync is hit-or-miss
+manifest v3 background workers sleep. if the popup opens and asks for state, sometimes the worker has stale memory.
+
+fix: switched to a storage-based sync engine. content.js updates the background -> background saves to chrome.storage.local -> popup.js listens for "onChanged" events. it's instant and survives worker suspension.
+
+problem: apple's shadow dom hiding everything
+standard querySelector couldn't see the player metadata because it was inside web component shadow roots.
+
+fix: wrote querySelectorDeep to recursively drill through every shadow root on the page. detection is now 100% reliable.
+
+problem: sleep timer fails in background tabs
+chrome throttles background tabs so the "stop" message would sometimes arrive late or never.
+
+fix: implemented a "dual-stop" strategy. background script now uses chrome.scripting.executeScript to force-inject a stop function directly into the tab, and as a fallback, it finds all video and audio elements and pauses them manually.
+
+current state
+core engine is rock solid. state detection is fast and low-cpu. sleep timer is background-safe.
+
+ready to build the mini-player next.

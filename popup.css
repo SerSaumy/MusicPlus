@@ -1,0 +1,224 @@
+/* ===== Base ===== */
+
+body {
+    margin: 0;
+    padding: 0px;
+    width: 360px;
+
+    font-family: system-ui, -apple-system, sans-serif;
+    background: #121212;
+    color: #ffffff;
+}
+
+/* ===== Main Container ===== */
+
+.container {
+    background: #181818;
+    border-radius: 0px;
+    padding: 16px;
+    box-shadow: 
+        0 8px 24px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255,255,255,0.04);
+    border: 1px solid #242424;
+}
+
+/* Section spacing */
+.section {
+    padding: 14px 0;
+}
+
+.divider {
+    height: 1px;
+    background: #2a2a2a;
+    margin: 12px 0;
+}
+
+/* ===== Now Playing ===== */
+
+.track-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.artwork-thumb {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+}
+
+.text-meta {
+    overflow: hidden;
+}
+
+.title {
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.artist {
+    font-size: 12px;
+    color: #b3b3b3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ===== Sleep Timer ===== */
+
+.label-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #ffffff;
+}
+
+.slider-val {
+    font-size: 12px;
+    color: #FA586A;
+    font-weight: 600;
+}
+
+/* ===== Slider ===== */
+
+.slider-container {
+    margin-top: 12px;
+}
+
+#timer-slider {
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: #2a2a2a;
+    outline: none;
+}
+
+#timer-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #FA586A;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+#timer-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+/* ===== Preset Buttons ===== */
+
+.timer-presets {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.preset {
+    background: #242424;
+    border: 1px solid #2f2f2f;
+    color: #ffffff;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.preset:hover {
+    background: #ffffff59;
+}
+
+.preset.active {
+    background: #FA586A;
+    border-color: #FA586A;
+}
+
+/* ===== Cancel Button ===== */
+
+.cancel-btn {
+    background: none;
+    border: none;
+    color: #b3b3b3;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 4px;
+    transition: color 0.2s;
+}
+
+.cancel-btn:hover {
+    color: #FA586A;
+}
+
+.status-line {
+    font-size: 11px;
+    color: #b3b3b3;
+    margin-top: 8px;
+}
+
+/* ===== Layout Helpers ===== */
+
+.row-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hidden {
+    display: none;
+}
+
+/* ===== Toggle Switch (Modern Dark) ===== */
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 36px;
+    height: 20px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    inset: 0;
+    background-color: #2a2a2a;
+    border-radius: 20px;
+    transition: background 0.2s ease;
+}
+
+.slider:before {
+    content: "";
+    position: absolute;
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    top: 3px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+}
+
+input:checked + .slider {
+    background-color: #FA586A;
+}
+
+input:checked + .slider:before {
+    transform: translateX(16px);
+}

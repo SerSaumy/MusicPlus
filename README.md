@@ -1,10 +1,18 @@
 # MusicPlus — Apple Music Web Player Enhancer
 
-**Status:** Very Early development (started recently). Not ready for public download yet.
+**Status:**
+Accurately detects track info, artist, and high-res artwork.
+Set a timer to automatically pause music. Works even if the tab is in the background. (a toggle for mini player is there but it doesn't work)
 
-**If still wanna use**
+**Not developed enough to be released but If you still wanna use it or if you wanna help develop/test beta then follow this:**
+## Installation (Developer Mode)
+1. Download this repo as a ZIP and extract it.
+2. Open `chrome://extensions` or `brave://extensions` in your respective browser.
+3. Enable **Developer mode** (top right toggle).
+4. Click **Load unpacked** and select the `musicplus` folder.
+5. Head to [music.apple.com](https://music.apple.com) and start jamming.
 
-If you wanna help develop/test beta then follow this:
-
-Download the repo as a zip file -> extract the zip anywhere inside it will be the project root folder -> open brave/chrome and type "brave://extensions" / "chrome://extensions" in your address bar and hit enter -> toggle switch on the developer mode -> click on "Load unpacked" and choose the extracted folder -> DONE!!! go to music.apple.com and test
-
+## what's next?
+1. A Mini player
+2. Notifications of the song playing
+3. keyboard shortcuts
