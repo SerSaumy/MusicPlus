@@ -14,5 +14,5 @@ Set a timer to automatically pause music. Works even if the tab is in the backgr
 
 ## what's next?
 1. A Mini player
-2. Notifications of the song playing
+2. Notifications of the seng playing
 3. keyboard shortcut
