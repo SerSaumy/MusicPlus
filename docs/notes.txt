@@ -43,14 +43,19 @@ fix: switched to a storage-based sync engine. content.js updates the background 
 problem: apple's shadow dom hiding everything
 standard querySelector couldn't see the player metadata because it was inside web component shadow roots.
 
-fix: wrote querySelectorDeep to recursively drill through every shadow root on the page. detection is now 100% reliable.
+fix: wrote querySelectorDeep to recursively drill through every shadow root on the page. detection is now 100% reliable. (Later removed once direct selectors were confirmed working for efficiency).
 
 problem: sleep timer fails in background tabs
 chrome throttles background tabs so the "stop" message would sometimes arrive late or never.
 
 fix: implemented a "dual-stop" strategy. background script now uses chrome.scripting.executeScript to force-inject a stop function directly into the tab, and as a fallback, it finds all video and audio elements and pauses them manually.
 
-current state
-core engine is rock solid. state detection is fast and low-cpu. sleep timer is background-safe.
+--- RECENT UPDATES (June 2026) ---
 
-ready to build the mini-player next.
+problem 9: mini player window management.
+chrome's standalone popup windows are hard to size consistently across OSs, and they steal focus or get hidden easily.
+fix: pivoted to native chrome.notifications. now, whenever a song changes while playing, a sleek desktop notification pops up with the artwork, title, and artist. it's less intrusive and 100% reliable. made it "silent: true" so it doesn't interrupt the music.
+
+current state: 
+core engine is rock solid. state detection is fast and low-cpu. sleep timer is background-safe. silent notifications and media keys are working. 
+ready for v1.0.0 commit.

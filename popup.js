@@ -1,4 +1,16 @@
+// popup.js — handles the UI logic
+
 let timerInterval = null;
+
+/**
+ * Updates the slider's visual progress.
+ */
+function updateSliderProgress(value) {
+    const slider = document.getElementById('timer-slider');
+    if (!slider) return;
+    const percentage = (value / slider.max) * 100;
+    slider.style.setProperty('--progress', `${percentage}%`);
+}
 
 function formatMinutes(totalMins) {
     const hours = Math.floor(totalMins / 60);
@@ -41,6 +53,7 @@ function updateTimerUI(status) {
     if (status && status.active) {
         cancelBtn.classList.remove('hidden');
         slider.value = status.minutesSet;
+        updateSliderProgress(status.minutesSet);
         sliderDisplay.textContent = formatMinutes(status.minutesSet);
         
         presets.forEach(p => {
@@ -61,6 +74,7 @@ function updateTimerUI(status) {
                 presets.forEach(p => p.classList.remove('active'));
                 clearInterval(timerInterval);
                 slider.value = 0;
+                updateSliderProgress(0);
                 sliderDisplay.textContent = '00h00m';
             } else {
                 statusEl.textContent = `time remaining: ${formatTime(remaining)}`;
@@ -73,12 +87,13 @@ function updateTimerUI(status) {
         cancelBtn.classList.add('hidden');
         if (timerInterval) clearInterval(timerInterval);
         slider.value = 0;
+        updateSliderProgress(0);
         sliderDisplay.textContent = '00h00m';
     }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Initial State from Storage (Fastest)
+    // 1. Initial State from Storage
     chrome.storage.local.get(['lastMusicState', 'sleepTimer'], (result) => {
         if (result.lastMusicState) updateUI(result.lastMusicState);
         if (result.sleepTimer) updateTimerUI(result.sleepTimer);
@@ -102,28 +117,33 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. Timer Slider listeners
     const slider = document.getElementById('timer-slider');
     const sliderDisplay = document.getElementById('slider-display');
+    
     slider.addEventListener('input', (e) => {
         const val = parseInt(e.target.value);
         sliderDisplay.textContent = formatMinutes(val);
+        updateSliderProgress(val);
     });
+
     slider.addEventListener('change', (e) => {
         const minutes = parseInt(e.target.value);
         if (minutes > 0) {
             chrome.runtime.sendMessage({ type: 'TIMER_START', payload: { minutes } });
             updateTimerUI({ active: true, minutesSet: minutes, startedAt: Date.now() });
+            updateSliderProgress(minutes);
         } else {
             chrome.runtime.sendMessage({ type: 'TIMER_CANCEL' });
             updateTimerUI({ active: false });
+            updateSliderProgress(0);
         }
     });
 
-    // 5. Mini player toggle
-    document.getElementById('mini-player-toggle').addEventListener('change', (e) => {
-        chrome.runtime.sendMessage({ type: 'MINIPLAYER_TOGGLE', payload: { enabled: e.target.checked } });
+    // 5. Shortcuts settings
+    document.getElementById('open-shortcuts').addEventListener('click', () => {
+        chrome.tabs.create({ url: 'chrome://extensions/shortcuts' });
     });
 });
 
-// 6. Listen for storage changes (Core sync engine)
+// 6. Listen for storage changes
 chrome.storage.onChanged.addListener((changes, areaName) => {
     if (areaName === 'local') {
         if (changes.lastMusicState) {

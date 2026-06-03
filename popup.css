@@ -94,28 +94,41 @@ body {
 
 .slider-container {
     margin-top: 12px;
+    display: flex;
+    align-items: center;
 }
 
 #timer-slider {
+    -webkit-appearance: none;
+    appearance: none;
     width: 100%;
     height: 4px;
     border-radius: 2px;
-    background: #2a2a2a;
+    background: linear-gradient(to right, #FA586A 0%, #FA586A var(--progress, 0%), #2a2a2a var(--progress, 0%), #2a2a2a 100%);
     outline: none;
+    margin: 0;
 }
 
 #timer-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
+    appearance: none;
     width: 14px;
     height: 14px;
     border-radius: 50%;
-    background: #FA586A;
+    background: #FA586A !important;
     cursor: pointer;
+    border: none;
     transition: transform 0.15s ease;
+    box-shadow: 0 0 2px rgba(0,0,0,0.5);
 }
 
-#timer-slider::-webkit-slider-thumb:hover {
-    transform: scale(1.2);
+#timer-slider::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #FA586A !important;
+    cursor: pointer;
+    border: none;
 }
 
 /* ===== Preset Buttons ===== */
@@ -180,45 +193,18 @@ body {
     display: none;
 }
 
-/* ===== Toggle Switch (Modern Dark) ===== */
+/* ===== Shortcuts Section ===== */
 
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 36px;
-    height: 20px;
+#open-shortcuts {
+    font-size: 12px;
+    text-decoration: underline;
+    color: #888;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
 }
 
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.slider {
-    position: absolute;
-    inset: 0;
-    background-color: #2a2a2a;
-    border-radius: 20px;
-    transition: background 0.2s ease;
-}
-
-.slider:before {
-    content: "";
-    position: absolute;
-    height: 14px;
-    width: 14px;
-    left: 3px;
-    top: 3px;
-    background-color: white;
-    border-radius: 50%;
-    transition: transform 0.2s ease;
-}
-
-input:checked + .slider {
-    background-color: #FA586A;
-}
-
-input:checked + .slider:before {
-    transform: translateX(16px);
+#open-shortcuts:hover {
+    color: #FA586A;
 }

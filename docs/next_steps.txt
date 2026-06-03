@@ -1,4 +1,3 @@
 what to do next:
 - **Mini Player:** the toggle is there, but the logic is empty. we need to build the actual floating window.
-- **Notifications:** we have the permission, but we aren't showing "Now Playing" popups yet.
 - **Keyboard Shortcuts:** adding 'MediaNextTrack', 'MediaPlayPause' support so you can control it without opening the tab.

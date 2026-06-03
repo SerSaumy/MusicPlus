@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "MusicPlus",
   "version": "1.0.0",
-  "description": "Supercharge your Apple Music web player with sleep timer, mini player, keyboard shortcuts, and now-playing notifications.",
+  "description": "Supercharge your Apple Music web player with sleep timer, keyboard shortcuts, and now-playing notifications.",
   "permissions": [
     "storage",
     "notifications",
@@ -23,8 +23,7 @@
         "*://music.apple.com/*"
       ],
       "js": [
-        "content.js",
-        "mini-player.js"
+        "content.js"
       ],
       "run_at": "document_idle",
       "all_frames": true
@@ -43,15 +42,27 @@
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
-  "web_accessible_resources": [
-    {
-      "resources": [
-        "mini-player.css",
-        "popup.css"
-      ],
-      "matches": [
-        "*://music.apple.com/*"
-      ]
+  "commands": {
+    "PLAY_PAUSE": {
+      "suggested_key": {
+        "default": "MediaPlayPause"
+      },
+      "description": "Play or Pause music",
+      "global": true
+    },
+    "NEXT_TRACK": {
+      "suggested_key": {
+        "default": "MediaNextTrack"
+      },
+      "description": "Next track",
+      "global": true
+    },
+    "PREV_TRACK": {
+      "suggested_key": {
+        "default": "MediaPrevTrack"
+      },
+      "description": "Previous track",
+      "global": true
     }
-  ]
+  }
 }

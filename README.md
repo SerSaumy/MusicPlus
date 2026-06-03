@@ -2,7 +2,8 @@
 
 **Status:**
 Accurately detects track info, artist, and high-res artwork.
-Set a timer to automatically pause music. Works even if the tab is in the background. (a toggle for mini player is there but it doesn't work)
+Set a timer to automatically pause music. Works even if the tab is in the background.
+Silent desktop notifications whenever a new track starts.
 
 **Not developed enough to be released but If you still wanna use it or if you wanna help develop/test beta then follow this:**
 ## Installation (Developer Mode)
@@ -12,7 +13,11 @@ Set a timer to automatically pause music. Works even if the tab is in the backgr
 4. Click **Load unpacked** and select the `musicplus` folder.
 5. Head to [music.apple.com](https://music.apple.com) and start jamming.
 
+## Shortcuts
+- **Play/Pause**: MediaPlayPause
+- **Next**: MediaNextTrack
+- **Previous**: MediaPrevTrack
+*Click "Settings" in the extension popup to customize these keys.*
+
 ## what's next?
-1. A Mini player
-2. Notifications of the song playing
-3. keyboard shortcut
+1. Mini-player (cannot figure it out need help)
